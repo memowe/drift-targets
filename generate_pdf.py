@@ -15,7 +15,7 @@ for fn in sys.argv:
 
     # Extract short name of the data file and its content
     filehandle  = open(fn)
-    fragment    = re.search('(\w+)\.dat$', fn).group(1)
+    fragment    = re.search('(\w+)\.data$', fn).group(1)
     line        = filehandle.readline()
     numbers     = list(map(lambda s: int(s), line.split(' ')))
     thickness   = sum(numbers)
