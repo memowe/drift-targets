@@ -1,5 +1,6 @@
 import sys
 import re
+import datetime
 
 # Prepare output file
 filehandle = open('output/index.md', 'w')
@@ -14,5 +15,9 @@ for fn in sys.argv:
 
     # Generate markdown link to PDF file
     filehandle.write(f"- [{fragment}.pdf](pdf/{fragment}.pdf)\n")
+
+# Add timestamp
+now = datetime.datetime.now()
+filehandle.write("\n" + now.strftime('%Y-%m-%d %H:%M'))
 
 filehandle.close()
