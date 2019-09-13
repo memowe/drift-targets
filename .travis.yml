@@ -6,4 +6,4 @@ install:
 
 script:
     - make generate_pdf
-    - make index
+    - make generate_index
