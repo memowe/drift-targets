@@ -1,0 +1,17 @@
+language: python
+
+install:
+    - pip install -r requirements.txt
+    - sudo apt-get install pandoc
+
+script:
+    - make generate_pdf
+    - make generate_index
+
+deploy:
+    provider: pages
+    github_token: $GITHUB_TOKEN
+    local_dir: output
+    target_branch: gh-pages
+    on:
+        branch: master
