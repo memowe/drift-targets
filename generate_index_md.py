@@ -3,6 +3,7 @@ import re
 
 # Prepare output file
 filehandle = open('output/index.md', 'w')
+filehandle.write("# Drift Targets\n\n")
 
 # Read from data files given as command line arguments
 sys.argv.pop(0)
