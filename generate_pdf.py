@@ -41,5 +41,5 @@ for fn in sys.argv:
         print(' ' + str(th), end = '')
 
     # Write to file
-    pdf.output(f'output/{fragment}.pdf')
+    pdf.output(f'output/pdf/{fragment}.pdf')
     print(' ...done.')
