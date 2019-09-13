@@ -1,0 +1,9 @@
+language: python
+
+install:
+    - pip install -r requirements.txt
+    - sudo apt-get install pandoc
+
+script:
+    - make generate_pdf
+    - make index
