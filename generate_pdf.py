@@ -9,6 +9,11 @@ def first_line(fn):
     f.close()
     return str
 
+# Convert unit strings to values
+def parse_line_thickness(input_str):
+    units = int(input_str)
+    return units * 3.2
+
 # Read from data files given as command line arguments
 sys.argv.pop(0)
 for fn in sys.argv:
@@ -17,7 +22,7 @@ for fn in sys.argv:
     filehandle  = open(fn)
     fragment    = re.search('(\w+)\.data$', fn).group(1)
     line        = filehandle.readline()
-    numbers     = list(map(lambda s: int(s), line.split(' ')))
+    numbers     = list(map(parse_line_thickness, line.split(' ')))
     thickness   = sum(numbers)
     filehandle.close()
 
