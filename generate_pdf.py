@@ -48,6 +48,10 @@ for name, numbers in config['strips'].items():
         black = not(black)
         print(' ' + str(th), end = '')
 
+    # Add target name
+    pdf.set_font('Helvetica', 'B', 8)
+    pdf.text(x = 20, y = start + y + 10, txt = name)
+
     # Write to file
     pdf.output(f'output/pdf/{name}.pdf')
     print(' ...done.')
