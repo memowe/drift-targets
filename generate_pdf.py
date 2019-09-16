@@ -7,32 +7,16 @@ from fpdf import FPDF
 config = ConfigParser()
 config.read('config.ini')
 
-# Helper to read the first line from a file
-def first_line(fn):
-    f   = open(fn)
-    str = f.readline()
-    f.close()
-    return str
-
 # Convert unit strings to values
-def parse_line_thickness(input_str):
-    units = int(input_str)
-    return units * float(config['geometry']['default_unit'])
+def parse_strips(s):
+    factor = float(config['geometry']['default_unit'])
+    return list(map(lambda s: factor * float(s), s.split(' ')))
 
-# Read from data files given as command line arguments
-sys.argv.pop(0)
-for fn in sys.argv:
-
-    # Extract short name of the data file and its content
-    filehandle  = open(fn)
-    fragment    = re.search('(\w+)\.data$', fn).group(1)
-    line        = filehandle.readline()
-    numbers     = list(map(parse_line_thickness, line.split(' ')))
-    thickness   = sum(numbers)
-    filehandle.close()
+# Process strip data
+for name, numbers in config['strips'].items():
 
     # Log
-    print(f'Writing {fragment}.pdf:', end = '')
+    print(f'Writing {name}.pdf:', end = '')
 
     # Prepare PDF
     pdf = FPDF(
@@ -43,11 +27,15 @@ for fn in sys.argv:
     pdf.add_page()
     pdf.set_fill_color(0, 0, 0)
 
+    # Parse data
+    strips      = parse_strips(numbers)
+    thickness   = sum(strips)
+
     # Draw lines
     start = (float(config['papersize']['width']) - thickness) / 2
     black = True
     y     = 0
-    for th in numbers:
+    for th in strips:
         if (black):
             pdf.rect(
                 x       = 0,
@@ -61,5 +49,5 @@ for fn in sys.argv:
         print(' ' + str(th), end = '')
 
     # Write to file
-    pdf.output(f'output/pdf/{fragment}.pdf')
+    pdf.output(f'output/pdf/{name}.pdf')
     print(' ...done.')
