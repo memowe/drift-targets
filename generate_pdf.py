@@ -1,6 +1,11 @@
 import sys
 import re
+from configparser import ConfigParser
 from fpdf import FPDF
+
+# Read configuration
+config = ConfigParser()
+config.read('config.ini')
 
 # Helper to read the first line from a file
 def first_line(fn):
@@ -12,7 +17,7 @@ def first_line(fn):
 # Convert unit strings to values
 def parse_line_thickness(input_str):
     units = int(input_str)
-    return units * 3.2
+    return units * float(config['geometry']['default_unit'])
 
 # Read from data files given as command line arguments
 sys.argv.pop(0)
@@ -30,17 +35,27 @@ for fn in sys.argv:
     print(f'Writing {fragment}.pdf:', end = '')
 
     # Prepare PDF
-    pdf = FPDF(orientation = 'L', unit = 'mm', format = 'A4')
+    pdf = FPDF(
+        orientation = config['papersize']['orientation'],
+        format      = config['papersize']['name'],
+        unit        = 'mm',
+    )
     pdf.add_page()
     pdf.set_fill_color(0, 0, 0)
 
     # Draw lines
-    start = 105 - thickness/2
+    start = (float(config['papersize']['width']) - thickness) / 2
     black = True
     y     = 0
     for th in numbers:
         if (black):
-            pdf.rect(x = 0, y = start+y, w = 297, h = th, style = 'F')
+            pdf.rect(
+                x       = 0,
+                y       = start+y,
+                w       = float(config['papersize']['height']),
+                h       = th,
+                style   = 'F',
+            )
         y += th
         black = not(black)
         print(' ' + str(th), end = '')
