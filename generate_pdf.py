@@ -52,6 +52,10 @@ for name, numbers in config['strips'].items():
     pdf.set_font('Helvetica', 'B', 8)
     pdf.text(x = 20, y = start + y + 10, txt = name)
 
+    # Add arrow, if neccessary
+    if name == 'finish':
+        pdf.text(x = 17, y = start + y + 10, txt = '^')
+
     # Write to file
     pdf.output(f'output/pdf/{name}.pdf')
     print(' ...done.')
