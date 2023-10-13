@@ -5,14 +5,18 @@
 
 ## Requirements
 
-None. PDFs are generated as continuous [Travis CI][travis] builds and deployed to [a GitHub Pages website][ghp].
+To build the PDFs locally, `python3` is required.
 
-[travis]: https://travis-ci.org/
-[ghp]: https://mirko.westermeier.de/drift-targets/
+## Build PDFs and HTML overview
 
-To build the PDFs locally, python3 with pip and pandoc are required:
+With `make`
 
-```bash
-$ make init
-$ make generate_pdf
-```
+- all dependencies are installed in a virtual python environment
+- PDFs for all targets are written to `output/pdf` and
+- a simple overview website is written to `output/index.html`.
+
+## Author and license
+
+(c) 2019-2023 Mirko Westermeier
+
+Licensed under the MIT license (see [LICENSE](LICENSE) for details)
