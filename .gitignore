@@ -4,3 +4,6 @@
 # Output files
 /output/**
 !/output/.gitkeep
+
+# Python files
+venv
