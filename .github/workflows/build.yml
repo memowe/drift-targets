@@ -7,15 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository content
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
       - name: Setup python environment
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
       - name: Build PDFs and HTML index
         run: make all
       - name: Store generated PDFs and HTML as pages artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: output
 
@@ -32,4 +32,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deploy
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
